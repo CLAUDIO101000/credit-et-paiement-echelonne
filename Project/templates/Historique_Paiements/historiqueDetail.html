@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'Historique des Paiements</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'credit/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert2.min.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar">
+                <div class="logo-details">
+                    <span class="logo_name">G-Crédit</span>
+                </div>
+                <ul class="nav-links">
+                    <li>
+                        <a href="{% url 'home' %}">
+                            <i class="bi bi-grid"></i>
+                            <span>Tableau de Bord</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client-list' %}">
+                            <i class="bi bi-person"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'credit-list' %}">
+                            <i class="bi bi-calendar"></i>
+                            <span>Crédits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'planning-paiement-list' %}">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Planning de Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paiement-list' %}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'garantie-list' %}">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Garanties</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historique-list' %}" class="active">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Historique des Paiements</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main-content">
+                <h2 class="mb-4">Informations de l'Historique de Paiement N°{{ lhistorique.id }}</h2>
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-file-earmark-check text-primary me-2"></i>
+                                <span><strong>ID Paiement :</strong> Paiement {{ lhistorique.paiement.id }} - {{ lhistorique.paiement.planning }}</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-file-earmark-text text-primary me-2"></i>
+                                <span><strong>Remarque :</strong> {{ lhistorique.remarque|safe }}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-calendar-check text-success me-2"></i>
+                                <span>
+                                    <strong>Date de Modification :</strong>
+                                    {{ lhistorique.date_modification|date:"d/m/Y à H:i" }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'historique-list' %}" class="btn btn-primary mt-4">Retour</a>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert2.min.js' %}"></script>
+
+</body>
+
+</html>

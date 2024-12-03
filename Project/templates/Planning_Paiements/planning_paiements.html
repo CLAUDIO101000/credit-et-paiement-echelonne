@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning de Paiements</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'credit/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert2.min.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar">
+                <div class="logo-details">
+                    <span class="logo_name">G-Crédit</span>
+                </div>
+                <ul class="nav-links">
+                    <li>
+                        <a href="{% url 'home' %}">
+                            <i class="bi bi-grid"></i>
+                            <span>Tableau de Bord</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client-list' %}">
+                            <i class="bi bi-person"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'credit-list' %}">
+                            <i class="bi bi-calendar"></i>
+                            <span>Crédits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'planning-paiement-list' %}" class="active">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Planning de Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paiement-list' %}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'garantie-list' %}">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Garanties</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historique-list' %}">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Historique des Paiements</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main-content">
+                <h2 class="mb-4">Planning des Paiements</h2>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a href="{% url 'planning-add' %}" class="btn btn-primary" id="btn-add">
+                        <i class="bi bi-plus-circle"></i> Ajouter un nouveau planning de paiement
+                    </a>
+                </div>
+                <div class="mb-3">
+                    <form method="GET" action="" class="row g-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="query" class="form-label fw-bold mb-0">Recherche :</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" id="query" name="query" value="{{ request.GET.query|default:'' }}"
+                                class="form-control" style="max-width: 300px;" placeholder="Entrez votre recherche">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Afficher</button>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-bordered table-hover table-rounded">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Client</th>
+                            <th>Crédit</th>
+                            <th>Numéro Échéance</th>
+                            <th>Montant Échéance</th>
+                            <th>Date Échéance</th>
+                            <th>Statut</th>
+                            <th colspan="3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for planning in lesplannings %}
+                        <tr>
+                            <td>{{ planning.id }}</td>
+                            <td>{{ planning.credit.client.nom }} {{ planning.credit.client.prenom }}</td>
+                            <td>{{ planning.credit.id }}</td>
+                            <td>{{ planning.numero_echeance }}</td>
+                            <td>{{ planning.montant_echeance }} Ar</td>
+                            <td>{{ planning.date_echeance|date:"d/m/Y" }}</td>
+                            <td>{{ planning.get_statut_display }}</td>
+                            <td>
+                                <a href="{% url 'planning-detail' id=planning.id %}" class="text-info">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'planning-update' id=planning.id %}" class="text-warning">
+                                    <i class="bi bi-pen"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" class="text-danger"
+                                    onclick="confirmDelete('{{ planning.id }}')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <form id="delete-form-{{ planning.id }}" method="post"
+                                    action="{% url 'planning-delete' id=planning.id %}" style="display:none;">
+                                    {% csrf_token %}
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">Aucun résultat trouvé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <ul class="pagination">
+                    {% if lesplannings.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ lesplannings.previous_page_number }}&query={{ request.GET.query }}">&lt;
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for page_num in lesplannings.paginator.page_range %}
+                    <li class="page-item {% if lesplannings.number == page_num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page_num }}&query={{ request.GET.query }}">
+                            {{ page_num }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                    {% if lesplannings.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ lesplannings.next_page_number }}&query={{ request.GET.query }}">&gt;
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </main>
+        </div>
+    </div>
+
+    <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert2.min.js' %}"></script>
+
+    <script>
+        function confirmDelete(planningId) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Êtes-vous sûr de vouloir supprimer ce planning ?',
+                text: "Vous ne pourrez pas revenir en arrière !",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non',
+                customClass: {
+                    popup: 'custom-swal-popup',
+                    confirmButton: 'custom-button',
+                    cancelButton: 'custom-button',
+                    icon: 'custom-icon'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + planningId).submit();
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

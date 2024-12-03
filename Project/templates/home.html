@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'credit/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert2.min.css' %}">
+    <style>
+        .card-title,
+        .card-text {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar">
+                <div class="logo-details">
+                    <span class="logo_name">G-Crédit</span>
+                </div>
+                <ul class="nav-links">
+                    <li>
+                        <a href="{% url 'home' %}" class="active">
+                            <i class="bi bi-grid"></i>
+                            <span>Tableau de Bord</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client-list' %}">
+                            <i class="bi bi-person"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'credit-list' %}">
+                            <i class="bi bi-calendar"></i>
+                            <span>Crédits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'planning-paiement-list' %}">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Planning de Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paiement-list' %}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'garantie-list' %}">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Garanties</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historique-list' %}">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Historique des Paiements</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main-content">
+                <h2 class="mb-4">Tableau de Bord</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card text-center shadow p-3 mb-3" style="background-color: #28a745;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-credit-card"></i> Total des Crédits
+                                </h5>
+                                <p class="card-text" id="total_credits">{{ total_credits }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-center shadow p-3 mb-3" style="background-color: #007bff;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-person-circle"></i> Total des Clients
+                                </h5>
+                                <p class="card-text" id="total_clients">{{ total_clients }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-center shadow p-3 mb-3" style="background-color: #ffc107;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-shield-lock"></i> Total des Garanties
+                                </h5>
+                                <p class="card-text" id="total_garanties">{{ total_garanties }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card text-center shadow p-3 mb-3" style="background-color: #17a2b8;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-check-circle"></i> Crédits Payés
+                                </h5>
+                                <p class="card-text" id="credits_paye">{{ credits_paye.count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-center shadow p-3 mb-3" style="background-color: #66b3ff;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-clock"></i> Crédits En Cours
+                                </h5>
+                                <p class="card-text" id="credits_en_cours">
+                                    {{ credits_en_cours }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card text-center shadow p-3 mb-3" style="background-color: #dc3545;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-exclamation-triangle"></i> Crédits En Retard
+                                </h5>
+                                <p class="card-text" id="credits_en_retard">{{ credits_en_retard.count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert2.min.js' %}"></script>
+
+</body>
+
+</html>

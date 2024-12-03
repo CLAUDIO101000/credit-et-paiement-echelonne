@@ -1,0 +1,123 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modification Client</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'credit/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert2.min.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar">
+                <div class="logo-details">
+                    <span class="logo_name">G-Crédit</span>
+                </div>
+                <ul class="nav-links">
+                    <li>
+                        <a href="{% url 'home' %}">
+                            <i class="bi bi-grid"></i>
+                            <span>Tableau de Bord</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client-list' %}" class="active">
+                            <i class="bi bi-person"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'credit-list' %}">
+                            <i class="bi bi-calendar"></i>
+                            <span>Crédits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'planning-paiement-list' %}">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Planning de Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paiement-list' %}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'garantie-list' %}">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Garanties</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historique-list' %}">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Historique des Paiements</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main-content">
+                <h2 class="mb-4">Modification du client</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_nom" class="form-label">Nom</label>
+                            {{ form.nom }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_prenom" class="form-label">Prénom</label>
+                            {{ form.prenom }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_adresse" class="form-label">Adresse</label>
+                        {{ form.adresse }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_telephone" class="form-label">Téléphone</label>
+                        {{ form.telephone }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_email" class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_date_naissance" class="form-label">Date de naissance</label>
+                        {{ form.date_naissance }}
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-pen"></i> Modifier
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{% url 'client-list' %}" class="btn btn-danger">
+                                <i class="bi bi-x-circle"></i> Annuler
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert2.min.js' %}"></script>
+
+</body>
+
+</html>

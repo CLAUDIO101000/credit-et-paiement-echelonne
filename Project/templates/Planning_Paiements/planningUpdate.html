@@ -1,0 +1,135 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modification du Planning</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'credit/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert2.min.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar">
+                <div class="logo-details">
+                    <span class="logo_name">G-Crédit</span>
+                </div>
+                <ul class="nav-links">
+                    <li>
+                        <a href="{% url 'home' %}">
+                            <i class="bi bi-grid"></i>
+                            <span>Tableau de Bord</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client-list' %}">
+                            <i class="bi bi-person"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'credit-list' %}">
+                            <i class="bi bi-calendar"></i>
+                            <span>Crédits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'planning-paiement-list' %}" class="active">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Planning de Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paiement-list' %}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'garantie-list' %}">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Garanties</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historique-list' %}">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Historique des Paiements</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main-content">
+                <h2 class="mb-4">Modification du Planning de Paiements</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_credit" class="form-label">Crédit</label>
+                            {{ form.credit }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_numero_echeance" class="form-label">Numéro d'Échéance</label>
+                            {{ form.numero_echeance }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_montant_echeance" class="form-label">Montant Échéance</label>
+                            {{ form.montant_echeance }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_date_echeance" class="form-label">Date Échéance</label>
+                            {{ form.date_echeance }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-pen"></i> Modifier
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{% url 'planning-paiement-list' %}" class="btn btn-danger">
+                                <i class="bi bi-x-circle"></i> Annuler
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert2.min.js' %}"></script>
+
+    {% if form.errors %}
+    {% for field, error_list in form.errors.items %}
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur sur {{ field|capfirst }}',
+            text: '{% for error in error_list %} {{ error|escapejs }} {% endfor %}',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+            customClass: {
+                popup: 'custom-swal-popup',
+                confirmButton: 'custom-button',
+                icon: 'custom-icon'
+            }
+        });
+    </script>
+    {% endfor %}
+    {% endif %}
+
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crédits</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'credit/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert2.min.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar">
+                <div class="logo-details">
+                    <span class="logo_name">G-Crédit</span>
+                </div>
+                <ul class="nav-links">
+                    <li>
+                        <a href="{% url 'home' %}">
+                            <i class="bi bi-grid"></i>
+                            <span>Tableau de Bord</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client-list' %}">
+                            <i class="bi bi-person"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'credit-list' %}" class="active">
+                            <i class="bi bi-calendar"></i>
+                            <span>Crédits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'planning-paiement-list' %}">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Planning de Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paiement-list' %}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'garantie-list' %}">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Garanties</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historique-list' %}">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Historique des Paiements</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main-content">
+                <h2 class="mb-4">Liste des crédits</h2>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a href="{% url 'credit-add' %}" class="btn btn-primary" id="btn-add">
+                        <i class="bi bi-plus-circle"></i> Ajouter un nouveau crédit
+                    </a>
+                </div>
+                <div class="mb-3">
+                    <form method="get" class="row g-2 align-items-center">
+                        <div class="col-auto">
+                            <label for="start_date" class="form-label fw-bold mb-0">Date de début :</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" id="start_date" name="start_date" class="form-control"
+                                style="max-width: 300px;">
+                        </div>
+                        <div class="col-auto">
+                            <label for="end_date" class="form-label fw-bold mb-0">Date de fin :</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" id="end_date" name="end_date" class="form-control"
+                                style="max-width: 300px;">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Rechercher</button>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-bordered table-hover table-rounded">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Client</th>
+                            <th>Reste à payé</th>
+                            <th>Durée</th>
+                            <th>Date début</th>
+                            <th>Date fin</th>
+                            <th>Statut</th>
+                            <th colspan="3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for credit in lescredits %}
+                        <tr>
+                            <td>{{ credit.id }}</td>
+                            <td>{{ credit.client.nom }} {{ credit.client.prenom }}</td>
+                            <td>{{ credit.montant_restant }} Ar</td>
+                            <td>{{ credit.duree_mois }} mois</td>
+                            <td>{{ credit.date_debut|date:"d/m/Y" }}</td>
+                            <td>{{ credit.date_fin|date:"d/m/Y" }}</td>
+                            <td>{{ credit.get_statut_display }}</td>
+                            <td>
+                                <a href="{% url 'credit-detail' id=credit.id %}" class="text-info">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'credit-update' id=credit.id %}" class="text-warning">
+                                    <i class="bi bi-pen"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" class="text-danger"
+                                    onclick="confirmDelete('{{ credit.id }}');">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <form id="delete-form-{{ credit.id }}" method="post"
+                                    action="{% url 'credit-delete' id=credit.id %}" style="display: none;">
+                                    {% csrf_token %}
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">Aucun résultat trouvé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <ul class="pagination">
+                    {% if lescredits.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ lescredits.previous_page_number }}&start_date={{ request.GET.start_date }}&end_date={{ request.GET.end_date }}">&lt;</a>
+                    </li>
+                    {% endif %}
+                    {% for page_num in lescredits.paginator.page_range %}
+                    <li class="page-item {% if page_num == lescredits.number %}active{% endif %}">
+                        <a class="page-link"
+                            href="?page={{ page_num }}&start_date={{ request.GET.start_date }}&end_date={{ request.GET.end_date }}">
+                            {{ page_num }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                    {% if lescredits.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ lescredits.next_page_number }}&start_date={{ request.GET.start_date }}&end_date={{ request.GET.end_date }}">&gt;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </main>
+        </div>
+    </div>
+
+    <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert2.min.js' %}"></script>
+
+    <script>
+        function confirmDelete(creditId) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Êtes-vous sûr de vouloir supprimer ce crédit ?',
+                text: "Vous ne pourrez pas revenir en arrière !",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non',
+                customClass: {
+                    popup: 'custom-swal-popup',
+                    confirmButton: 'custom-button',
+                    cancelButton: 'custom-button',
+                    icon: 'custom-icon'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + creditId).submit();
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

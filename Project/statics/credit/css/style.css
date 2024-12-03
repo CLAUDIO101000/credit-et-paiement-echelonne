@@ -1,0 +1,203 @@
+/* Reset */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 500ms ease;
+}
+
+/* personnalisé */
+#btn-add{
+    background-color: darkviolet;
+    border: darkviolet;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+#btn-add:hover{
+    background-color: blueviolet;
+    border: blueviolet;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f7fa;
+}
+
+/* Barre de menu */
+.sidebar {
+    padding-top: 20px;
+    background-color: #343a40;
+    color: white;
+    height: 100vh;
+}
+
+.logo-details {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.logo_name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fafafa;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    width: 100%;
+    padding: 5px 0;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+.nav-links a i {
+    margin-right: 20px;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fafafa;
+    border-radius: 5px;
+}
+
+/* Contenu principal */
+#main-content {
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Cartes */
+.card {
+    margin: 15px 0;
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-title i {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+.card-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* tableau style */
+.table-rounded {
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-rounded th,
+.table-rounded td {
+    border: none;
+}
+
+.table-rounded thead th {
+    background-color: #36304A;
+    color: #fafafa;
+}
+
+/* pagination */
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #f1f1f1;
+    color: #0056b3;
+}
+
+.pagination .current {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 1px solid #007bff;
+}
+
+/* Message de confirmation et d'erreur */
+.custom-swal-popup {
+    width: 250px;
+    max-width: 90%;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.custom-button {
+    width: 80px;
+    padding: 7px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.custom-icon {
+    font-size: 10px;
+}
+
+.swal2-title {
+    font-size: 16px;
+}
+
+.swal2-text {
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        height: auto;
+    }
+    
+    #main-content {
+        margin-left: 0;
+    }
+}

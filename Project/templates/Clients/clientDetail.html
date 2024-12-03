@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Client</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'credit/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'sweetalert/sweetalert2.min.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav class="col-md-3 col-lg-2 d-none d-md-block bg-dark sidebar">
+                <div class="logo-details">
+                    <span class="logo_name">G-Crédit</span>
+                </div>
+                <ul class="nav-links">
+                    <li>
+                        <a href="{% url 'home' %}">
+                            <i class="bi bi-grid"></i>
+                            <span>Tableau de Bord</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client-list' %}" class="active">
+                            <i class="bi bi-person"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'credit-list' %}">
+                            <i class="bi bi-calendar"></i>
+                            <span>Crédits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'planning-paiement-list' %}">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Planning de Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'paiement-list' %}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'garantie-list' %}">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Garanties</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historique-list' %}">
+                            <i class="bi bi-journal-text"></i>
+                            <span>Historique des Paiements</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main-content">
+                <h2 class="mb-4">Informations du Client N°{{ leclient.id }}</h2>
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-person-circle text-primary me-2"></i>
+                                    <span><strong>Nom :</strong> {{ leclient.nom }} {{ leclient.prenom }}</span>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-house-fill text-success me-2"></i>
+                                    <span><strong>Adresse :</strong> {{ leclient.adresse }}</span>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-telephone-fill text-info me-2"></i>
+                                    <span><strong>Téléphone :</strong> {{ leclient.telephone }}</span>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-envelope-fill text-danger me-2"></i>
+                                    <span><strong>Email :</strong> {{ leclient.email }}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-calendar-event-fill text-warning me-2"></i>
+                                    <span><strong>Date de naissance :</strong> {{ leclient.date_naissance|date:"d/m/Y" }}</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a href="{% url 'client-list' %}" class="btn btn-primary mt-4">Retour</a>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="{% static 'jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'sweetalert/sweetalert2.min.js' %}"></script>
+
+</body>
+
+</html>
