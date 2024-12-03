@@ -73,3 +73,8 @@ Le projet **Crédit et Paiement Échelonné** est une application Django permett
 ```bash
 git clone https://github.com/votre-repo/credit-et-paiement-echelonne.git
 cd credit-et-paiement-echelonne
+
+## Auteur
+- **Nom de l'auteur** : RANAIVOSON Nantenaina Claudio
+- **e-mail** : ranaivosonclaudio@gmail.com
+- **tel** : 032 43 372 46
