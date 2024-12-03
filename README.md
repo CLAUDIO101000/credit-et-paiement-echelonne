@@ -1,10 +1,10 @@
 # Crédit et Paiement Échelonné
 
-## Description
+## 📄 Description
 
 Le projet **Crédit et Paiement Échelonné** est une application Django permettant de gérer les crédits accordés aux clients et leurs paiements de manière échelonnée. Ce système permet de suivre l'état des crédits, les échéances de paiement, et d'assurer une gestion claire et efficace des garanties associées aux crédits.
 
-## Fonctionnalités
+## ✨ Fonctionnalités
 
 ### Gestion des Clients
 - Enregistrement des informations personnelles des clients : nom, prénom, adresse, téléphone, email, date de naissance.
@@ -29,7 +29,7 @@ Le projet **Crédit et Paiement Échelonné** est une application Django permett
 - Suivi du statut des garanties : **Active**, **Utilisée**, **Expirée**.
 - Stockage des descriptions et des valeurs estimées des garanties.
 
-## Modèles
+## 🛠️ Modèles de Données
 
 ### Client
 - **Champs** : nom, prénom, adresse, téléphone, email, date_naissance.
@@ -60,18 +60,13 @@ Le projet **Crédit et Paiement Échelonné** est une application Django permett
 - **Champs** : credit, type_garantie, valeur_estimee, description, statut.
 - **Statuts possibles** : active, utilisée, expirée.
 
-## Prérequis
+## ⚙️ Prérequis
 
 - Python 3.8+
 - Django 4.0+
 - Bibliothèques Python additionnelles : `dateutil`, `mysqlclient` (ou tout autre connecteur compatible avec votre base de données).
 
-## Auteur
-- **Nom de l'auteur** : RANAIVOSON Nantenaina Claudio
-- **e-mail** : ranaivosonclaudio@gmail.com
-- **tel** : 032 43 372 46
-
-## Installation
+## 🚀 Installation
 
 ### Cloner le dépôt
 
@@ -106,6 +101,11 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-### Utilisation
+### 🌐 Utilisation
 Accédez à l'interface utilisateur via http://127.0.0.1:8000.
 Utilisez l'interface pour gérer les clients, crédits, paiements et garanties.
+
+## 👤 Auteur
+- **Nom de l'auteur** : RANAIVOSON Nantenaina Claudio
+- **e-mail** : ranaivosonclaudio@gmail.com
+- **tel** : 032 43 372 46
