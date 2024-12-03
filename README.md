@@ -66,6 +66,11 @@ Le projet **Crédit et Paiement Échelonné** est une application Django permett
 - Django 4.0+
 - Bibliothèques Python additionnelles : `dateutil`, `mysqlclient` (ou tout autre connecteur compatible avec votre base de données).
 
+## Auteur
+- **Nom de l'auteur** : RANAIVOSON Nantenaina Claudio
+- **e-mail** : ranaivosonclaudio@gmail.com
+- **tel** : 032 43 372 46
+
 ## Installation
 
 ### Cloner le dépôt
@@ -73,8 +78,3 @@ Le projet **Crédit et Paiement Échelonné** est une application Django permett
 ```bash
 git clone https://github.com/votre-repo/credit-et-paiement-echelonne.git
 cd credit-et-paiement-echelonne
-
-## Auteur
-- **Nom de l'auteur** : RANAIVOSON Nantenaina Claudio
-- **e-mail** : ranaivosonclaudio@gmail.com
-- **tel** : 032 43 372 46
