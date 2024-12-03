@@ -102,12 +102,8 @@ python
 ```bash
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nom_base_de_donnees',
-        'USER': 'nom_utilisateur',
-        'PASSWORD': 'mot_de_passe',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 ```
