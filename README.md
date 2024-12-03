@@ -78,3 +78,42 @@ Le projet **Crédit et Paiement Échelonné** est une application Django permett
 ```bash
 git clone https://github.com/votre-repo/credit-et-paiement-echelonne.git
 cd credit-et-paiement-echelonne
+
+Créer un environnement virtuel et l'activer
+bash
+Copier le code
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+Installer les dépendances
+bash
+Copier le code
+pip install -r requirements.txt
+Configurer la base de données dans settings.py
+Modifiez la section DATABASES pour indiquer vos informations de connexion à la base de données.
+
+python
+Copier le code
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'nom_base_de_donnees',
+        'USER': 'nom_utilisateur',
+        'PASSWORD': 'mot_de_passe',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+Appliquer les migrations
+bash
+Copier le code
+python manage.py makemigrations
+python manage.py migrate
+Lancer le serveur
+bash
+Copier le code
+python manage.py runserver
+Utilisation
+Accédez à l'interface utilisateur via http://127.0.0.1:8000.
+
+Utilisez l'interface pour gérer les clients, crédits, paiements et garanties.
