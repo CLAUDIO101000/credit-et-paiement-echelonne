@@ -81,14 +81,14 @@ cd credit-et-paiement-echelonne
 
 ### Créer un environnement virtuel et l'activer
 
-'''bash
+```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 
 ### Installer les dépendances
 
-'''bash
+```bash
 pip install -r requirements.txt
 
 ### Configurer la base de données dans settings.py
@@ -96,7 +96,7 @@ Modifiez la section DATABASES pour indiquer vos informations de connexion à la 
 
 python
 
-'''bash
+```bash
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -110,7 +110,7 @@ DATABASES = {
 
 ### Appliquer les migrations
 
-'''bash
+```bash
 python manage.py makemigrations
 python manage.py migrate
 
