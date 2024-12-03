@@ -94,20 +94,6 @@ venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 ```
 
-### Configurer la base de données dans settings.py
-Modifiez la section DATABASES pour indiquer vos informations de connexion à la base de données.
-
-python
-
-```bash
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-```
-
 ### Appliquer les migrations
 
 ```bash
