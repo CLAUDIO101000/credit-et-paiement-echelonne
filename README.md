@@ -108,4 +108,4 @@ Utilisez l'interface pour gérer les clients, crédits, paiements et garanties.
 ## 👤 Auteur
 - **Nom de l'auteur** : RANAIVOSON Nantenaina Claudio
 - **e-mail** : ranaivosonclaudio@gmail.com
-- **tel** : 032 43 372 46
+- **tel** : +261 32 43 372 46
